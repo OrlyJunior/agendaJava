@@ -2,12 +2,14 @@ window.onload = renderizaCalendario
 
 var diasDoCalendario = document.getElementById("dias");
 
-var linhaAtual = document.getElementById("linha1")
+var linhaAtual = document.getElementById("linha1");
+
+var data = document.getElementById("data");
 
 var meses = ["Janeiro", "Fevereiro", "Março",
     "Abril", "Maio", "Junho", "Julho",
     "Agosto", "Setembro",
-    "Outubro", "Novembro", "Dezembro"]
+    "Outubro", "Novembro", "Dezembro"];
 
 var idTr = 1;
 
@@ -29,17 +31,27 @@ for (var i = primeiroDia.getDate(); i <= ultimoDia.getDate(); i++) {
     diasDoMes.push(i);
 }
 
-function renderizaCalendario(){
+function renderizaCalendario() {
+    var celulasDaTabela = 0;
 
+    data.innerHTML = meses[dia.getMonth()];
+
+    for (var i = 0; i < primeiroDia.getDay(); i++) {        
+        linhaAtual.insertAdjacentHTML("afterbegin", "<td></td>")
+
+        celulasDaTabela++;
+    }
 
     diasDoMes.forEach(dia => {
         linhaAtual.insertAdjacentHTML("beforeend", `<td>${dia}</td>`);
-    
-        if (dia % 7 == 0) {
+
+        celulasDaTabela++;
+
+        if (celulasDaTabela % 7 == 0) {
             idTr++;
-    
+
             diasDoCalendario.insertAdjacentHTML("beforeend", `<tr id='linha${idTr}'></tr>`)
-    
+
             linhaAtual = document.getElementById(`linha${idTr}`)
         }
     })
