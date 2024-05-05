@@ -1,0 +1,36 @@
+html, body{
+    overflow: hidden;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav{
+    padding: 1.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 1.5vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid rgb(175, 175, 175);
+}
+
+nav > *{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+nav > p:hover{
+    cursor: pointer;
+    font-weight: 1000;
+}
+
+nav > img{
+    position: absolute;
+    left: 0;
+}
+
+.calendario{
+    margin-top: 8%;
+}

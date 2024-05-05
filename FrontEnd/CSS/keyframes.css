@@ -1,0 +1,9 @@
+@keyframes rotateTitulo{
+    0%{
+        rotate: 18deg;
+    }
+
+    100%{
+        rotate: -18deg;
+    }
+}
