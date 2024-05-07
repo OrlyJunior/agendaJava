@@ -17,8 +17,11 @@
     </nav>
 
     <div class="calendario">
-        <p id="data"></p>
-
+        <div class="data">
+            <button onclick="mesAnterior()"> < </button>
+                    <p id="data"></p>
+                    <button onclick="proximoMes()"> > </button>
+        </div>
         <table class="rounded-table">
             <thead>
                 <tr class="diasDaSemana">
@@ -32,9 +35,7 @@
                 </tr>
             </thead>
             <tbody id="dias">
-                <tr id="linha1">
 
-                </tr>
             </tbody>
         </table>
     </div>
