@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mysql.cj.xdevapi.Statement;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import interfaces.Icrud;
 
 @RestController
 @Api(tags = "CRUD de usuários")
-public class usersController {
+public class usersController implements Icrud{
 	Metodos metodos = new Metodos();
 
 	@GetMapping("/users")
