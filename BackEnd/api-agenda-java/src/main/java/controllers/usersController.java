@@ -24,6 +24,8 @@ import interfaces.Icrud;
 @Api(tags = "CRUD de usuários")
 public class usersController implements Icrud{
 	Metodos metodos = new Metodos();
+	
+    private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
 
 	@GetMapping("/users")
 	@ApiOperation(value = "Retorna todos os usuários")
@@ -31,8 +33,6 @@ public class usersController implements Icrud{
 		ArrayList<User> usuarios = new ArrayList<User>();
 
 		Connection con = null;
-
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
 
 		try {
 			con = DriverManager.getConnection(connectionString);
@@ -72,9 +72,7 @@ public class usersController implements Icrud{
 		Connection con = null;
 
 		User user = new User();
-		
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
+	
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -113,8 +111,6 @@ public class usersController implements Icrud{
 	public ResponseEntity<?> post(String user, String email, String password) {
 		Connection con = null;
 
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -143,8 +139,6 @@ public class usersController implements Icrud{
 	public ResponseEntity<?> put(String user, String email, String password, int id) {
 		Connection con = null;
 
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -172,8 +166,6 @@ public class usersController implements Icrud{
 	@ApiOperation(value = "Desativa um usuário na tabela")
 	public ResponseEntity<?> delete(int id) {
 		Connection con = null;
-
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
 
 		try {
 			con = DriverManager.getConnection(connectionString);

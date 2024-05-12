@@ -26,6 +26,9 @@ import interfaces.Icrud;
 @Api(tags = "CRUD de compromissos")
 public class compromissosController implements Icrud {
 	Metodos metodos = new Metodos();
+	
+    private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
+
 
 	@GetMapping("/compromissos")
 	@ApiOperation(value = "Retorna todos os compromissos da tabela")
@@ -33,9 +36,6 @@ public class compromissosController implements Icrud {
 		ArrayList<Compromisso> compromissos = new ArrayList<Compromisso>();
 
 		Connection con = null;
-
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -74,9 +74,7 @@ public class compromissosController implements Icrud {
 	@ApiOperation(value = "Insere um compromisso na tabela")
 	public ResponseEntity<?> post(String descricao, String data, String hora, int usuarioId, int agendaId) {
 		Connection con = null;
-
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
+		
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -107,8 +105,6 @@ public class compromissosController implements Icrud {
 	public ResponseEntity<?> put(String descricao, String data, String hora, int usuarioId, int agendaId, int id) {
 		Connection con = null;
 
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
 		try {
 			con = DriverManager.getConnection(connectionString);
 
@@ -138,8 +134,6 @@ public class compromissosController implements Icrud {
 	@ApiOperation(value = "Desativa um compromisso da tabela")
 	public ResponseEntity<?> delete(int id) {
 		Connection con = null;
-
-		String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
 
 		try {
 			con = DriverManager.getConnection(connectionString);
