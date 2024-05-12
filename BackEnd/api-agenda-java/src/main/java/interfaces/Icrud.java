@@ -10,15 +10,6 @@ public interface Icrud {
 	@GetMapping
 	public ResponseEntity<?> get();
 	
-	@PostMapping
-	public ResponseEntity<?> post(String user, String email, String password);
-	
-	@PutMapping()
-	public ResponseEntity<?> put(String user, String email, String password, int id);
-	
 	@DeleteMapping
 	public ResponseEntity<?> delete(int id);
-	
-	@GetMapping
-	public ResponseEntity<?> getId(int id);
 }
