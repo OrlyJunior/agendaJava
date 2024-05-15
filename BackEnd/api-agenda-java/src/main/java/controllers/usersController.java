@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
+
 import metodosUteis.Metodos;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.mysql.cj.xdevapi.Statement;
 import io.swagger.annotations.Api;
@@ -111,7 +116,10 @@ public class usersController implements Icrud{
 
 	@PostMapping("/users/login")
 	@ApiOperation(value = "Faz o login do usuário e retorna um token com seu nome, email e se está ativo ou não.")
-	public ResponseEntity<?> post(String email, String password) {
+	public ResponseEntity<?> post(@RequestBody Map<String, String> data) {
+		String email = data.get("email");
+		String password = data.get("password");
+		
 		Connection con = null;
 		
 		String token = "";
