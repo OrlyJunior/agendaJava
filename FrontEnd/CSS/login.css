@@ -1,6 +1,6 @@
 body,html{
     background-color: rgb(228, 228, 228);
-    overflow: hidden;
+    overflow-x: hidden;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -10,18 +10,18 @@ body,html{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-input, button{
+input, button, select{
     width: 27.5%;
     margin-top: 2%;
     border-radius: 12px;
 }
 
-input{
+input, select{
     padding: 0.75%;
     border: 0.5px solid gray;
 }
 
-input:focus{
+input:focus, select:focus{
     color: white;
     background-color: rgb(51, 51, 51);
 }

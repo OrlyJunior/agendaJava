@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GeraToken {
-	public String geraToken(String user, String email, boolean ativo) {
+	public String geraToken(String user, String email, boolean ativo, int id) {
 		Date expira = new Date(System.currentTimeMillis() + 3600000);
 		
 		String chaveSecreta = palavraSecreta();
@@ -22,6 +22,7 @@ public class GeraToken {
             claims.put("user", user);
             claims.put("email", email);
             claims.put("ativo", ativo);
+            claims.put("id", id);
 			
 			String token = Jwts.builder()
 								.claim("dados", claims)

@@ -76,7 +76,7 @@ public class usersController implements Icrud{
 	
 	@GetMapping("/users/id")
 	@ApiOperation(value = "Retorna um usuário pelo seu ID")
-	public ResponseEntity<?> getId(int id){
+	public ResponseEntity<?> getId(@RequestParam int id){
 		Connection con = null;
 
 		User user = new User();
@@ -135,7 +135,7 @@ public class usersController implements Icrud{
 			
 			while(retorno.next()) {
 				if(email.equals(retorno.getString("email")) && password.equals(retorno.getString("password")) && retorno.getBoolean("ativo") == true) {
-					token = geradorDeTokens.geraToken(retorno.getString("user"), email, retorno.getBoolean("ativo"));
+					token = geradorDeTokens.geraToken(retorno.getString("user"), email, retorno.getBoolean("ativo"), retorno.getInt("id"));
 				
 					return ResponseEntity.ok(token);
 				}
@@ -152,7 +152,7 @@ public class usersController implements Icrud{
 	
 	@PostMapping("/users")
 	@ApiOperation(value = "Insere um usuário na tabela")
-	public ResponseEntity<?> post(String user, String email, String password) {
+	public ResponseEntity<?> post(@RequestParam String user, @RequestParam String email, @RequestParam String password) {
 		Connection con = null;
 
 		try {
@@ -180,7 +180,7 @@ public class usersController implements Icrud{
 	
 	@PutMapping("/users")
 	@ApiOperation(value = "Edita um usuário da tabela")
-	public ResponseEntity<?> put(String user, String email, String password, int id) {
+	public ResponseEntity<?> put(@RequestParam String user, @RequestParam String email, @RequestParam String password, @RequestParam int id) {
 		Connection con = null;
 
 		try {
@@ -208,7 +208,7 @@ public class usersController implements Icrud{
 
 	@DeleteMapping("/users")
 	@ApiOperation(value = "Desativa um usuário na tabela")
-	public ResponseEntity<?> delete(int id) {
+	public ResponseEntity<?> delete(@RequestParam int id) {
 		Connection con = null;
 
 		try {

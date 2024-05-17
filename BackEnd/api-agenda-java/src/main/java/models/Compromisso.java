@@ -2,12 +2,16 @@ package models;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 public class Compromisso {
 	private int id;
     private String descricao;
-    private Date data;
-    private Time hora;
+    private String data;
+    private String cidade;
+    private String bairro;
+    private String rua;
+    private int numero;
     private int usuarioId;
     private int agendaId;
     private boolean ativo;
@@ -28,14 +32,6 @@ public class Compromisso {
         this.descricao = descricao;
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
     public int getUsuarioId() {
         return usuarioId;
     }
@@ -52,19 +48,51 @@ public class Compromisso {
         this.agendaId = agendaId;
     }
 
-	public Time getHora() {
-		return hora;
-	}
-
-	public void setHora(Time hora) {
-		this.hora = hora;
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 }
