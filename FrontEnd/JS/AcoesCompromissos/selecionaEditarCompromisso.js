@@ -11,7 +11,7 @@ async function consultar(){
         var compromissos = await retorno.json();
 
         compromissos.forEach(element => {
-            document.getElementById("tabelaCompromissos").insertAdjacentHTML("beforeend", `<tr>
+            document.getElementById("tabelaCompromissos").insertAdjacentHTML("beforeend", `<tr onclick="selecionou(${element.id})">
                                                                                                 <td>${element.descricao}</td>
                                                                                                 <td>${element.data}
                                                                                                 <td>${element.cidade}</td>
@@ -23,6 +23,10 @@ async function consultar(){
     }catch(e) {
         console.error(e);
     }
+}
+
+function selecionou(id){
+    window.location.href = `editarCompromisso.html?id=${id}`
 }
 
 function decodificaToken(token) {

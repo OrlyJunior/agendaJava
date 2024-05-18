@@ -1,4 +1,8 @@
 async function editar(){
+    var parametros = new URLSearchParams(window.location.search);
+    
+    var id = parametros.get("id");
+
     var desc = document.getElementById("desc").value;
     var data = `${document.getElementById("data").value} ${document.getElementById("hora").value}`;
     var cidade = document.getElementById("cidade").value;
@@ -8,6 +12,7 @@ async function editar(){
     var agenda = document.getElementById("agenda").value;
 
     var update = {
+        id: id,
         descricao: desc,
         data: data,
         cidade: cidade,
