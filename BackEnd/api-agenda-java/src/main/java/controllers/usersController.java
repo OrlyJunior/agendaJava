@@ -152,7 +152,7 @@ public class usersController implements Icrud{
 	
 	@PostMapping("/users")
 	@ApiOperation(value = "Insere um usuário na tabela")
-	public ResponseEntity<?> post(@RequestBody String user, @RequestBody String email, @RequestBody String password) {
+	public ResponseEntity<?> post(@RequestBody User user) {
 		Connection con = null;
 
 		try {
@@ -162,9 +162,9 @@ public class usersController implements Icrud{
 
 			PreparedStatement comando = con.prepareStatement(cm);
 
-			comando.setString(1, user);
-			comando.setString(2, email);
-			comando.setString(3, password);
+			comando.setString(1, user.getUser());
+			comando.setString(2, user.getEmail());
+			comando.setString(3, user.getPassword());
 			comando.setBoolean(4, true);
 
 			comando.execute();
@@ -180,7 +180,7 @@ public class usersController implements Icrud{
 	
 	@PutMapping("/users")
 	@ApiOperation(value = "Edita um usuário da tabela")
-	public ResponseEntity<?> put(@RequestBody String user, @RequestBody String email, @RequestBody String password, @RequestBody int id) {
+	public ResponseEntity<?> put(@RequestBody User user) {
 		Connection con = null;
 
 		try {
@@ -190,10 +190,10 @@ public class usersController implements Icrud{
 
 			PreparedStatement comando = con.prepareStatement(cm);
 
-			comando.setString(1, user);
-			comando.setString(2, email);
-			comando.setString(3, password);
-			comando.setInt(4, id);
+			comando.setString(1, user.getUser());
+			comando.setString(2, user.getEmail());
+			comando.setString(3, user.getPassword());
+			comando.setInt(4, user.getId());
 
 			comando.execute();
 
@@ -208,7 +208,7 @@ public class usersController implements Icrud{
 
 	@DeleteMapping("/users")
 	@ApiOperation(value = "Desativa um usuário na tabela")
-	public ResponseEntity<?> delete(@RequestBody int id) {
+	public ResponseEntity<?> delete(int id) {
 		Connection con = null;
 
 		try {

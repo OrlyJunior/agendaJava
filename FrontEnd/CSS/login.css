@@ -27,6 +27,7 @@ input:focus, select:focus{
 }
 
 button{
+    font-size: 18px;
     background-color: rgb(34, 34, 34);
     border: 0;
     color: white;
@@ -50,11 +51,8 @@ h1, h2{
     color: black;
 }
 
-/* .titulo{
-    z-index: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 3%;
-} */
+a{
+    font-size: 15px;
+    margin-top: 1%;
+    color: black;
+}
