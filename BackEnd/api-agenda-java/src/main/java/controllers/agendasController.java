@@ -67,7 +67,7 @@ public class agendasController implements Icrud {
 
 	@PostMapping("/agendas")
 	@ApiOperation(value = "Insere uma agenda na tabela")
-	public ResponseEntity<?> post(@RequestBody int usuarioId, @RequestBody String nome) {
+	public ResponseEntity<?> post(@RequestBody Agenda agenda) {
 		Connection con = null;
 
 		try {
@@ -77,8 +77,8 @@ public class agendasController implements Icrud {
 
 			PreparedStatement comando = con.prepareStatement(cm);
 
-			comando.setInt(1, usuarioId);
-			comando.setString(2, nome);
+			comando.setInt(1, agenda.getUsuarioId());
+			comando.setString(2, agenda.getNome());
 			comando.setBoolean(3, true);
 
 			comando.execute();
@@ -94,7 +94,7 @@ public class agendasController implements Icrud {
 
 	@PutMapping("/agendas")
 	@ApiOperation(value = "Edita uma agenda da tabela")
-	public ResponseEntity<?> put(@RequestBody int id, @RequestBody String nome) {
+	public ResponseEntity<?> put(@RequestBody Agenda agenda) {
 		Connection con = null;
 
 		try {
@@ -104,8 +104,8 @@ public class agendasController implements Icrud {
 
 			PreparedStatement comando = con.prepareStatement(cm);
 
-			comando.setString(1, nome);
-			comando.setInt(2, id);
+			comando.setString(1, agenda.getNome());
+			comando.setInt(2, agenda.getId());
 
 			comando.execute();
 
@@ -120,7 +120,7 @@ public class agendasController implements Icrud {
 
 	@DeleteMapping("/agendas")
 	@ApiOperation(value = "Desativa uma agenda da tabela")
-	public ResponseEntity<?> delete(@RequestBody int id) {
+	public ResponseEntity<?> delete(int id) {
 		Connection con = null;
 
 		try {

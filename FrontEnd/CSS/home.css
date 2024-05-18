@@ -12,8 +12,8 @@ nav {
     align-items: center;
     justify-content: center;
     width: 100vw;
-    height: 1.5vh;
-    position: absolute;
+    height: 2.5vh;
+    position: relative;
     top: 0;
     left: 0;
     box-shadow: 0px 14px 24px -10px rgba(0,0,0,0.50);
@@ -29,9 +29,19 @@ nav>p:hover {
     font-weight: 1000;
 }
 
-nav>img {
+.perfil {
     position: absolute;
-    left: 0;
+    right: 6%;
+}
+
+.acoes{
+    position: absolute;
+    left: 1%;
+}
+
+#nomeDoUsuario{
+    position: absolute;
+    right: 11%;
 }
 
 th {
@@ -94,3 +104,4 @@ p {
 .data>button:hover{
     background-color: rgb(183, 183, 250);
 }
+
