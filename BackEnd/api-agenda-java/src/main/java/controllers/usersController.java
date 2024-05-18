@@ -76,7 +76,7 @@ public class usersController implements Icrud{
 	
 	@GetMapping("/users/id")
 	@ApiOperation(value = "Retorna um usuário pelo seu ID")
-	public ResponseEntity<?> getId(@RequestParam int id){
+	public ResponseEntity<?> getId(@RequestBody int id){
 		Connection con = null;
 
 		User user = new User();
@@ -152,7 +152,7 @@ public class usersController implements Icrud{
 	
 	@PostMapping("/users")
 	@ApiOperation(value = "Insere um usuário na tabela")
-	public ResponseEntity<?> post(@RequestParam String user, @RequestParam String email, @RequestParam String password) {
+	public ResponseEntity<?> post(@RequestBody String user, @RequestBody String email, @RequestBody String password) {
 		Connection con = null;
 
 		try {
@@ -180,7 +180,7 @@ public class usersController implements Icrud{
 	
 	@PutMapping("/users")
 	@ApiOperation(value = "Edita um usuário da tabela")
-	public ResponseEntity<?> put(@RequestParam String user, @RequestParam String email, @RequestParam String password, @RequestParam int id) {
+	public ResponseEntity<?> put(@RequestBody String user, @RequestBody String email, @RequestBody String password, @RequestBody int id) {
 		Connection con = null;
 
 		try {
@@ -208,7 +208,7 @@ public class usersController implements Icrud{
 
 	@DeleteMapping("/users")
 	@ApiOperation(value = "Desativa um usuário na tabela")
-	public ResponseEntity<?> delete(@RequestParam int id) {
+	public ResponseEntity<?> delete(@RequestBody int id) {
 		Connection con = null;
 
 		try {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
@@ -66,7 +67,7 @@ public class agendasController implements Icrud {
 
 	@PostMapping("/agendas")
 	@ApiOperation(value = "Insere uma agenda na tabela")
-	public ResponseEntity<?> post(@RequestParam int usuarioId, @RequestParam String nome) {
+	public ResponseEntity<?> post(@RequestBody int usuarioId, @RequestBody String nome) {
 		Connection con = null;
 
 		try {
@@ -93,7 +94,7 @@ public class agendasController implements Icrud {
 
 	@PutMapping("/agendas")
 	@ApiOperation(value = "Edita uma agenda da tabela")
-	public ResponseEntity<?> put(@RequestParam int id, @RequestParam String nome) {
+	public ResponseEntity<?> put(@RequestBody int id, @RequestBody String nome) {
 		Connection con = null;
 
 		try {
@@ -119,7 +120,7 @@ public class agendasController implements Icrud {
 
 	@DeleteMapping("/agendas")
 	@ApiOperation(value = "Desativa uma agenda da tabela")
-	public ResponseEntity<?> delete(@RequestParam int id) {
+	public ResponseEntity<?> delete(@RequestBody int id) {
 		Connection con = null;
 
 		try {

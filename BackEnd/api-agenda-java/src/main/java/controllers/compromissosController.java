@@ -66,6 +66,51 @@ public class compromissosController implements Icrud {
             metodos.fecharConexao(con);
         }
     }
+    
+    @GetMapping("/compromissos/id")
+    @ApiOperation(value = "Retorna um compromisso da tabela pelo seu ID")
+    public ResponseEntity<?> get(@RequestBody int id) {
+        ArrayList<Compromisso> compromissos = new ArrayList<>();
+
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(connectionString);
+
+            String cm = "select * from tb_compromissos where id = ?";
+
+            PreparedStatement comando = con.prepareStatement(cm);
+            
+            comando.setInt(1, id);
+            
+            ResultSet retorno = comando.executeQuery();
+
+            while (retorno.next()) {
+                Compromisso compromisso = new Compromisso();
+
+                compromisso.setId(id);
+                compromisso.setDescricao(retorno.getString("descricao"));
+                compromisso.setData(retorno.getString("data_hora"));
+                compromisso.setCidade(retorno.getString("cidade"));
+                compromisso.setBairro(retorno.getString("bairro"));
+                compromisso.setRua(retorno.getString("rua"));
+                compromisso.setNumero(retorno.getInt("numero"));
+                compromisso.setAgendaId(retorno.getInt("agendaId"));
+                compromisso.setUsuarioId(retorno.getInt("usuarioId"));
+                compromisso.setAtivo(retorno.getBoolean("ativo"));
+
+                if (compromisso.isAtivo()) {
+                    compromissos.add(compromisso);
+                }
+            }
+
+            return ResponseEntity.ok(compromissos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", e.getMessage()));
+        } finally {
+            metodos.fecharConexao(con);
+        }
+    }
 
     @PostMapping("/compromissos")
     @ApiOperation(value = "Insere um compromisso na tabela")
@@ -135,7 +180,7 @@ public class compromissosController implements Icrud {
 
     @DeleteMapping("/compromissos")
     @ApiOperation(value = "Desativa um compromisso da tabela")
-    public ResponseEntity<?> delete(@RequestParam int id) {
+    public ResponseEntity<?> delete(@RequestBody int id) {
         Connection con = null;
 
         try {
