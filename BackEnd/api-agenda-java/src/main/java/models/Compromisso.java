@@ -8,6 +8,7 @@ public class Compromisso {
 	private int id;
     private String descricao;
     private String data;
+    private String hora;
     private String cidade;
     private String bairro;
     private String rua;
@@ -94,5 +95,13 @@ public class Compromisso {
 
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 }

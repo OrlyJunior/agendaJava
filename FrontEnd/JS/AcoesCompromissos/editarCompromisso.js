@@ -1,6 +1,35 @@
-async function editar(){
+window.onload = () => {
+    var variavel = new URLSearchParams(window.location.search)
+
+    var variavelDeURL = variavel.get("id")
+
+    pegarCompromisso(variavelDeURL)
+}
+
+async function pegarCompromisso(id) {
+    var options = {
+        method: "get"
+    }
+
+    var retorno = await fetch(`http://localhost:8080/compromissos/id?id=${id}`, options)
+
+    var compromisso = await retorno.json()
+
+    console.log(compromisso)
+
+    document.getElementById("desc").value = compromisso[0].descricao
+    document.getElementById("data").value = compromisso[0].data
+    document.getElementById("hora").value = compromisso[0].hora
+    document.getElementById("cidade").value = compromisso[0].cidade
+    document.getElementById("bairro").value = compromisso[0].bairro
+    document.getElementById("rua").value = compromisso[0].rua
+    document.getElementById("numero").value = compromisso[0].numero
+    document.getElementById("agenda").value = compromisso[0].agendaId
+}
+
+async function editar() {
     var parametros = new URLSearchParams(window.location.search);
-    
+
     var id = parametros.get("id");
 
     var desc = document.getElementById("desc").value;
@@ -31,11 +60,11 @@ async function editar(){
         body: JSON.stringify(update)
     };
 
-    try{
+    try {
         var retorno = await fetch(`http://localhost:8080/compromissos`, options)
 
-    console.log(retorno.text())
-    }catch(e) {
+        console.log(retorno.text())
+    } catch (e) {
         console.log(retorno.text())
         console.error(e);
     }

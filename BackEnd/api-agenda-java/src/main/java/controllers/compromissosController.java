@@ -44,7 +44,8 @@ public class compromissosController implements Icrud {
 
                 compromisso.setId(retorno.getInt("id"));
                 compromisso.setDescricao(retorno.getString("descricao"));
-                compromisso.setData(retorno.getString("data_hora"));
+                compromisso.setData(retorno.getString("data"));
+                compromisso.setHora(retorno.getString("hora"));
                 compromisso.setCidade(retorno.getString("cidade"));
                 compromisso.setBairro(retorno.getString("bairro"));
                 compromisso.setRua(retorno.getString("rua"));
@@ -52,6 +53,7 @@ public class compromissosController implements Icrud {
                 compromisso.setAgendaId(retorno.getInt("agendaId"));
                 compromisso.setUsuarioId(retorno.getInt("usuarioId"));
                 compromisso.setAtivo(retorno.getBoolean("ativo"));
+
 
                 if (compromisso.isAtivo()) {
                     compromissos.add(compromisso);
@@ -69,7 +71,7 @@ public class compromissosController implements Icrud {
     
     @GetMapping("/compromissos/id")
     @ApiOperation(value = "Retorna um compromisso da tabela pelo seu ID")
-    public ResponseEntity<?> get(@RequestBody int id) {
+    public ResponseEntity<?> get(int id) {
         ArrayList<Compromisso> compromissos = new ArrayList<>();
 
         Connection con = null;
@@ -89,7 +91,8 @@ public class compromissosController implements Icrud {
 
                 compromisso.setId(id);
                 compromisso.setDescricao(retorno.getString("descricao"));
-                compromisso.setData(retorno.getString("data_hora"));
+                compromisso.setData(retorno.getString("data"));
+                compromisso.setHora(retorno.getString("hora"));
                 compromisso.setCidade(retorno.getString("cidade"));
                 compromisso.setBairro(retorno.getString("bairro"));
                 compromisso.setRua(retorno.getString("rua"));
@@ -120,19 +123,20 @@ public class compromissosController implements Icrud {
         try {
             con = DriverManager.getConnection(connectionString);
 
-            String cm = "insert into tb_compromissos(descricao, data_hora, cidade, bairro, rua, numero, usuarioId, agendaId, ativo)values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String cm = "insert into tb_compromissos(descricao, data, hora, cidade, bairro, rua, numero, usuarioId, agendaId, ativo)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement comando = con.prepareStatement(cm);
 
             comando.setString(1, compromisso.getDescricao());
             comando.setString(2, compromisso.getData());
-            comando.setString(3, compromisso.getCidade());
-            comando.setString(4, compromisso.getBairro());
-            comando.setString(5, compromisso.getRua());
-            comando.setInt(6, compromisso.getNumero());
-            comando.setInt(7, compromisso.getUsuarioId());
-            comando.setInt(8, compromisso.getAgendaId());
-            comando.setBoolean(9, true);
+            comando.setString(3, compromisso.getHora());
+            comando.setString(4, compromisso.getCidade());
+            comando.setString(5, compromisso.getBairro());
+            comando.setString(6, compromisso.getRua());
+            comando.setInt(7, compromisso.getNumero());
+            comando.setInt(8, compromisso.getUsuarioId());
+            comando.setInt(9, compromisso.getAgendaId());
+            comando.setBoolean(10, true);
 
             comando.execute();
 
@@ -153,19 +157,20 @@ public class compromissosController implements Icrud {
         try {
             con = DriverManager.getConnection(connectionString);
 
-            String cm = "update tb_compromissos set descricao = ?, data_hora = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, usuarioId = ?, agendaId = ? where id = ?";
+            String cm = "update tb_compromissos set descricao = ?, data = ?, hora = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, usuarioId = ?, agendaId = ? where id = ?";
 
             PreparedStatement comando = con.prepareStatement(cm);
 
             comando.setString(1, compromisso.getDescricao());
             comando.setString(2, compromisso.getData());
-            comando.setString(3, compromisso.getCidade());
-            comando.setString(4, compromisso.getBairro());
-            comando.setString(5, compromisso.getRua());
-            comando.setInt(6, compromisso.getNumero());
-            comando.setInt(7, compromisso.getUsuarioId());
-            comando.setInt(8, compromisso.getAgendaId());
-            comando.setInt(9, compromisso.getId());
+            comando.setString(3, compromisso.getHora());
+            comando.setString(4, compromisso.getCidade());
+            comando.setString(5, compromisso.getBairro());
+            comando.setString(6, compromisso.getRua());
+            comando.setInt(7, compromisso.getNumero());
+            comando.setInt(8, compromisso.getUsuarioId());
+            comando.setInt(9, compromisso.getAgendaId());
+            comando.setInt(10, compromisso.getId());
 
             comando.execute();
 

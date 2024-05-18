@@ -1,6 +1,7 @@
 async function adicionar(){
     var desc = document.getElementById("desc").value;
-    var data = `${document.getElementById("data").value} ${document.getElementById("hora").value}`;
+    var data = document.getElementById("data").value;
+    var hora = document.getElementById("hora").value;
     var cidade = document.getElementById("cidade").value;
     var bairro = document.getElementById("bairro").value;
     var rua = document.getElementById("rua").value;
@@ -10,6 +11,7 @@ async function adicionar(){
     var update = {
         descricao: desc,
         data: data,
+        hora: hora,
         cidade: cidade,
         bairro: bairro,
         rua: rua,
