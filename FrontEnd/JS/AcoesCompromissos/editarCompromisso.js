@@ -1,4 +1,4 @@
-async function adicionar(){
+async function editar(){
     var desc = document.getElementById("desc").value;
     var data = `${document.getElementById("data").value} ${document.getElementById("hora").value}`;
     var cidade = document.getElementById("cidade").value;
@@ -19,7 +19,7 @@ async function adicionar(){
     }
 
     var options = {
-        method: "post",
+        method: "put",
         headers: {
             "Content-Type": "application/json"
         },

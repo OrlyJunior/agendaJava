@@ -10,11 +10,20 @@
 <body>
     <h2>Editar compromisso</h2>
 
-    <input type="text" id="descricao" placeholder="Insira a descrição do compromisso...">
-    <input type="datetime" id="data" placeholder="Insira a data do compromisso...">
+    <input type="text" id="desc" placeholder="Insira a descrição do compromisso...">
+    <input type="date" id="data">
+    <input type="time" id="hora">
     <input type="text" id="cidade" placeholder="Insira a cidade do compromisso...">
     <input type="text" id="bairro" placeholder="Insira o bairro do compromisso...">
     <input type="text" id="rua" placeholder="Insira a rua do compromisso...">
     <input type="number" id="numero" placeholder="Insira o numero do local do compromisso...">
+    <select id="agenda" placeholder="Selecione a agenda na qual deseja inserir o compromisso...">
+        <option value="1">Principal</option>
+    </select>
+
+    <button onclick="adicionar()">Editar</button>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="../../JS/AcoesCompromissos/adicionarCompromisso.js"></script>
 </body>
 </html>
