@@ -1,9 +1,9 @@
-@keyframes rotateTitulo{
-    0%{
-        rotate: 18deg;
+@keyframes entraNavegacao {
+    0% {
+        left: -5%;
     }
 
     100%{
-        rotate: -18deg;
+        left: 0;
     }
 }
