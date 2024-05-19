@@ -4,6 +4,8 @@ body {
     overflow: hidden;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
+    width: 101vw;
+    margin-left: 0;
 }
 
 nav {
@@ -37,6 +39,7 @@ nav>p:hover {
 .acoes{
     position: absolute;
     left: 1%;
+    cursor: pointer;
 }
 
 #nomeDoUsuario{
@@ -86,7 +89,7 @@ p {
     width: 15%;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 2%;
+    margin-top: 0%;
 }
 
 .data>button {
@@ -105,3 +108,37 @@ p {
     background-color: rgb(183, 183, 250);
 }
 
+.navegacao{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: whitesmoke;
+    height: 97.7%;
+    z-index: 10;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 2%;
+    border-radius: 12px;
+    box-shadow: 2px 0px 13px 0px rgba(0,0,0,0.50);
+}
+
+.navegacaoInvisivel{
+    display: none;
+}
+
+.navegacaoItem{
+    width: 100%;
+    border-radius: 12px;
+    padding: 4%;
+    margin-left: -1.5%;
+    font-size: 15.8px;
+}
+
+.navegacaoItem:hover{
+    background-color: rgb(194, 194, 194);
+    cursor: pointer;
+}
+
+.botaoFechaNavegacao{
+    cursor: pointer;
+}

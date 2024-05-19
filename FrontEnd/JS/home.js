@@ -1,4 +1,8 @@
-window.onload = renderizaCalendario
+window.onload = () => {
+    renderizaCalendario()
+
+    pegaNomeDoUsuario()
+}
 
 var diasDoCalendario = document.getElementById("dias");
 
@@ -26,6 +30,12 @@ var primeiroDia = new Date(dia.getFullYear(), dia.getMonth(), 1);
 var ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + 1, 0);
 
 var diasDaSemana = 7;
+
+function pegaNomeDoUsuario(){
+    var nome = decodificaToken(localStorage.getItem("token")).dados.user
+
+    document.getElementById("nomeDoUsuario").innerHTML = nome;
+}
 
 function renderizaCalendario() {
     var diasDoMes = [];
@@ -93,4 +103,18 @@ function mesAnterior(){
     ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo + 1, 0);
 
     renderizaCalendario();
+}
+
+function mostraNavegacao(){
+    document.getElementById("navegacao").classList.replace("navegacaoInvisivel", "navegacao")
+}
+
+function fecharNavegacao(){
+    document.getElementById("navegacao").classList.replace("navegacao", "navegacaoInvisivel")
+}
+
+function decodificaToken(token){
+    var tokenDecodificado = jwt_decode(token);
+
+    return tokenDecodificado;
 }

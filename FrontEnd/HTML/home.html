@@ -10,14 +10,33 @@
 </head>
 
 <body>
+    <div id="navegacao" class="navegacaoInvisivel">
+        <img class="botaoFechaNavegacao" onclick="fecharNavegacao()" src="" alt="fechar">
+
+        <h2>Agendas</h2>
+
+        <p class="navegacaoItem">Ver agendas</p>
+        <p class="navegacaoItem">Adicionar agendas</p>
+        <p class="navegacaoItem">Editar agendas</p>
+        <p class="navegacaoItem">Deletar agendas</p>
+
+        <h2>Compromissos</h2>
+        <p class="navegacaoItem">Adicionar compromisso</p>
+        <p class="navegacaoItem">Editar compromisso</p>
+        <p class="navegacaoItem">Deletar compromisso</p>
+
+        <h2>Minha conta</h2>
+        <p class="navegacaoItem">Configurações</p>
+    </div>
+
     <nav>
-        <img src="" alt="imagemAcoes" class="acoes">
+        <img src="" alt="imagemAcoes" class="acoes" onclick="mostraNavegacao()">
 
         <p>Home</p>
         <p>Configurações</p>
 
         <img class="perfil" src="" alt="perfil">
-        <p id="nomeDoUsuario">asd</p>
+        <p id="nomeDoUsuario"></p>
     </nav>
 
     <div class="calendario">
@@ -45,5 +64,6 @@
     </div>
 
     <script defer src="../JS/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 </body>
 </html>
