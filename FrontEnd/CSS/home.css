@@ -54,6 +54,7 @@ th {
 
 td {
     text-align: center;
+    border-radius: 12px;
 }
 
 td,
@@ -106,6 +107,10 @@ p {
 
 .data>button:hover{
     background-color: rgb(183, 183, 250);
+}
+
+.compromisso{
+    background-color: red;
 }
 
 .navegacao{

@@ -1,5 +1,7 @@
-window.onload = () => {
+window.onload = async () => {
     renderizaCalendario()
+
+    pegaCompromissos()
 
     pegaNomeDoUsuario()
 }
@@ -31,7 +33,7 @@ var ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + 1, 0);
 
 var diasDaSemana = 7;
 
-function pegaNomeDoUsuario(){
+function pegaNomeDoUsuario() {
     var nome = decodificaToken(localStorage.getItem("token")).dados.user
 
     document.getElementById("nomeDoUsuario").innerHTML = nome;
@@ -54,11 +56,7 @@ function renderizaCalendario() {
 
     var celulasDaTabela = 0;
 
-    data.innerHTML = `${meses[primeiroDia.getMonth()]}, ${primeiroDia.getFullYear()}` ;
-
-    console.log(meses[primeiroDia.getMonth()])
-
-    console.log(dia.getMonth())
+    data.innerHTML = `${meses[primeiroDia.getMonth()]}, ${primeiroDia.getFullYear()}`;
 
     for (var i = 0; i < celulaParaComecar; i++) {
         linhaAtual.insertAdjacentHTML("afterbegin", "<td></td>")
@@ -67,7 +65,13 @@ function renderizaCalendario() {
     }
 
     diasDoMes.forEach(dia => {
-        linhaAtual.insertAdjacentHTML("beforeend", `<td>${dia}</td>`);
+        var diaString = dia.toString()
+
+        if(diaString.length == 1){
+            dia = `0${dia}`
+        }
+
+        linhaAtual.insertAdjacentHTML("beforeend", `<td id="${primeiroDia.getMonth()}">${dia}</td>`);
 
         celulasDaTabela++;
 
@@ -85,7 +89,7 @@ function renderizaCalendario() {
     celulaParaComecar = celulasDaTabela + 1;
 }
 
-function proximoMes(){
+function proximoMes() {
     mesNovo++;
 
     primeiroDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo, 1);
@@ -93,9 +97,11 @@ function proximoMes(){
     ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo + 1, 0);
 
     renderizaCalendario();
+
+    pegaCompromissos();
 }
 
-function mesAnterior(){
+function mesAnterior() {
     mesNovo--;
 
     primeiroDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo, 1);
@@ -103,17 +109,61 @@ function mesAnterior(){
     ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo + 1, 0);
 
     renderizaCalendario();
+
+    pegaCompromissos();
 }
 
-function mostraNavegacao(){
+function mostraNavegacao() {
     document.getElementById("navegacao").classList.replace("navegacaoInvisivel", "navegacao")
 }
 
-function fecharNavegacao(){
+function fecharNavegacao() {
     document.getElementById("navegacao").classList.replace("navegacao", "navegacaoInvisivel")
 }
 
-function decodificaToken(token){
+async function pegaCompromissos() {
+    var options = {
+        method: "get"
+    }
+
+    var retorno = await fetch(`http://localhost:8080/compromissos`, options)
+
+    var compromissos = await retorno.json();
+
+    console.log(compromissos)
+
+    adicionaCompromissosAoCalendario(compromissos)
+}
+
+function adicionaCompromissosAoCalendario(compromissos) {
+    compromissos.forEach(compromisso => {
+        var comp = compromisso.data;
+
+        var anoDoCompromisso = comp.substring(0, 4)
+
+        var mesDoCompromisso = comp.substring(5, 7)
+
+        if (mesDoCompromisso[0] == 0) {
+            mesDoCompromisso -= 0;
+        }
+
+        var diaDoCompromisso = comp.substring(8, 10)
+
+        var td = "";
+
+        if (document.getElementById(`${mesDoCompromisso - 1}`)) {
+            td = document.getElementById(`${mesDoCompromisso - 1}`)
+        }
+
+        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6,10)
+
+        if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
+            td.classList.add("compromisso")
+        }
+    })
+}
+
+function decodificaToken(token) {
     var tokenDecodificado = jwt_decode(token);
 
     return tokenDecodificado;
