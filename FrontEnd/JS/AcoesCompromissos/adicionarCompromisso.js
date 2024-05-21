@@ -1,3 +1,5 @@
+window.onload = criaAgendasNoSelect
+
 async function adicionar(){
     var desc = document.getElementById("desc").value;
     var data = document.getElementById("data").value;
@@ -42,4 +44,22 @@ function decodificaToken(token) {
     var tokenDecodificado = jwt_decode(token);
 
     return tokenDecodificado;
+}
+
+async function criaAgendasNoSelect() {
+    var options = {
+        method: "get"
+    }
+
+    var usuarioId = decodificaToken(localStorage.getItem("token")).dados.id
+
+    var retorno = await fetch(`http://localhost:8080/agendas/usuarioId?usuarioId=${usuarioId}`, options)
+
+    var agendas = await retorno.json();
+
+    agendas.forEach(agenda => {
+        var selectAgendas = document.getElementById("agenda");
+
+        selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="renderizaCalendario()" value="${agenda.id}">${agenda.nome}</option>`)
+    })
 }

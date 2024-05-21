@@ -69,6 +69,8 @@ function renderizaCalendario() {
             dia = `0${dia}`
         }
 
+        console.log(primeiroDia.getMonth())
+
         linhaAtual.insertAdjacentHTML("beforeend", `<td id="${primeiroDia.getMonth()}">${dia}</td>`);
 
         celulasDaTabela++;
@@ -151,6 +153,8 @@ async function pegaCompromissos() {
 
     var compromissos = await retorno.json();
 
+    console.log(compromissos)
+
     adicionaCompromissosAoCalendario(compromissos)
 }
 
@@ -178,25 +182,23 @@ function adicionaCompromissosAoCalendario(compromissos) {
 
         var td = "";
 
-        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6, 10)
+        var anoDoCalendario = document.getElementById("data").innerHTML.split(",")[1].substring(1, 5)
 
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
             for (var i = 0; i <= 31; i++) {
-
                 if (document.getElementsByTagName("td")[i]) {
                     if (document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso) {
                         td = document.getElementsByTagName("td")[i]
                     }
                 }
-
+                
                 if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
+                    console.log(diaDoCompromisso)
+
                     td.classList.add("compromisso")
                 }
             }
         }
-
-
-
     })
 }
 
