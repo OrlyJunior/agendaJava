@@ -89,6 +89,8 @@ function renderizaCalendario() {
     idTr = 1;
 
     celulaParaComecar = celulasDaTabela + 1;
+
+    pegaCompromissos();
 }
 
 function proximoMes() {
@@ -99,8 +101,6 @@ function proximoMes() {
     ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo + 1, 0);
 
     renderizaCalendario();
-
-    pegaCompromissos();
 }
 
 function mesAnterior() {
@@ -111,8 +111,6 @@ function mesAnterior() {
     ultimoDia = new Date(dia.getFullYear(), dia.getMonth() + mesNovo + 1, 0);
 
     renderizaCalendario();
-
-    pegaCompromissos();
 }
 
 function mostraNavegacao() {
@@ -137,7 +135,7 @@ async function criaAgendasNoSelect(){
     agendas.forEach(agenda => {
         var selectAgendas = document.getElementById("agenda");
 
-        selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="pegaCompromissos()" value="${agenda.id}">${agenda.nome}</option>`)
+        selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="renderizaCalendario()" value="${agenda.id}">${agenda.nome}</option>`)
     })
 }
 
@@ -149,7 +147,7 @@ async function pegaCompromissos() {
 
     var agendaId = document.getElementById("agenda").value
 
-    var retorno = await fetch(`http://localhost:8080/compromissos`, options)
+    var retorno = await fetch(`http://localhost:8080/compromissos/agendaId?agendaId=${agendaId}`, options)
 
     var compromissos = await retorno.json();
 
@@ -159,6 +157,13 @@ async function pegaCompromissos() {
 }
 
 function adicionaCompromissosAoCalendario(compromissos) {
+    for(var i = 0; i <= 31; i++){
+        if(document.getElementsByTagName("td")[i] && document.getElementsByTagName("td")[i].classList.contains("compromisso")){
+            
+            document.getElementsByTagName("td")[i].classList.remove("compromisso")
+        }
+    }
+
     compromissos.forEach(compromisso => {
         var comp = compromisso.data;
 
@@ -174,25 +179,25 @@ function adicionaCompromissosAoCalendario(compromissos) {
 
         var td = "";
 
+        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6,10)
+
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
             for(var i = 0; i <= 31; i++){
-                if(document.getElementsByTagName("td")[i] && document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso){
-                    td = document.getElementsByTagName("td")[i]
+                
+                if(document.getElementsByTagName("td")[i]){
+                    if(document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso){
+                        td = document.getElementsByTagName("td")[i]
+                    }
+                }
+
+                if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
+                    td.classList.add("compromisso")
                 }
             }
         }
 
-        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6,10)
-
-        //console.log(diaDoCompromisso)
-
-        //console.log(td.innerHTML)
-
-        if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
-            
-
-            td.classList.add("compromisso")
-        }
+        
+        
     })
 }
 
