@@ -1,11 +1,7 @@
 window.onload = async () => {
-    criaAgendasNoSelect()
+    await criaAgendasNoSelect()
 
     renderizaCalendario()
-
-    pegaCompromissos()
-
-    pegaNomeDoUsuario()
 }
 
 var diasDoCalendario = document.getElementById("dias");
@@ -69,7 +65,7 @@ function renderizaCalendario() {
     diasDoMes.forEach(dia => {
         var diaString = dia.toString()
 
-        if(diaString.length == 1){
+        if (diaString.length == 1) {
             dia = `0${dia}`
         }
 
@@ -121,7 +117,7 @@ function fecharNavegacao() {
     document.getElementById("navegacao").classList.replace("navegacao", "navegacaoInvisivel")
 }
 
-async function criaAgendasNoSelect(){
+async function criaAgendasNoSelect() {
     var options = {
         method: "get"
     }
@@ -148,18 +144,21 @@ async function pegaCompromissos() {
     var agendaId = document.getElementById("agenda").value
 
     var retorno = await fetch(`http://localhost:8080/compromissos/agendaId?agendaId=${agendaId}`, options)
+    
+    if (retorno.ok == false) {
+        retorno = await fetch(`http://localhost:8080/compromissos/agendaId?agendaId=${document.getElementsByTagName("option")[0].value}`, options)
+    }
 
     var compromissos = await retorno.json();
-
-    console.log(compromissos)
 
     adicionaCompromissosAoCalendario(compromissos)
 }
 
+//Otimizar no futuro
 function adicionaCompromissosAoCalendario(compromissos) {
-    for(var i = 0; i <= 31; i++){
-        if(document.getElementsByTagName("td")[i] && document.getElementsByTagName("td")[i].classList.contains("compromisso")){
-            
+    for (var i = 0; i <= 31; i++) {
+        if (document.getElementsByTagName("td")[i] && document.getElementsByTagName("td")[i].classList.contains("compromisso")) {
+
             document.getElementsByTagName("td")[i].classList.remove("compromisso")
         }
     }
@@ -179,13 +178,13 @@ function adicionaCompromissosAoCalendario(compromissos) {
 
         var td = "";
 
-        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6,10)
+        var anoDoCalendario = document.getElementById("data").innerHTML.substring(6, 10)
 
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
-            for(var i = 0; i <= 31; i++){
-                
-                if(document.getElementsByTagName("td")[i]){
-                    if(document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso){
+            for (var i = 0; i <= 31; i++) {
+
+                if (document.getElementsByTagName("td")[i]) {
+                    if (document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso) {
                         td = document.getElementsByTagName("td")[i]
                     }
                 }
@@ -196,8 +195,8 @@ function adicionaCompromissosAoCalendario(compromissos) {
             }
         }
 
-        
-        
+
+
     })
 }
 
