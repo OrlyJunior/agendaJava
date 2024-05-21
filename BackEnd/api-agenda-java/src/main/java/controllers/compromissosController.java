@@ -20,192 +20,237 @@ import interfaces.Icrud;
 @RestController
 @Api(tags = "CRUD de compromissos")
 public class compromissosController implements Icrud {
-    Metodos metodos = new Metodos();
+	Metodos metodos = new Metodos();
 
-    private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
+	private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
 
-    @GetMapping("/compromissos")
-    @ApiOperation(value = "Retorna todos os compromissos da tabela")
-    public ResponseEntity<?> get() {
-        ArrayList<Compromisso> compromissos = new ArrayList<>();
+	@GetMapping("/compromissos")
+	@ApiOperation(value = "Retorna todos os compromissos da tabela")
+	public ResponseEntity<?> get() {
+		ArrayList<Compromisso> compromissos = new ArrayList<>();
 
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection(connectionString);
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(connectionString);
 
-            String cm = "select * from tb_compromissos";
+			String cm = "select * from tb_compromissos";
 
-            PreparedStatement comando = con.prepareStatement(cm);
+			PreparedStatement comando = con.prepareStatement(cm);
 
-            ResultSet retorno = comando.executeQuery();
+			ResultSet retorno = comando.executeQuery();
 
-            while (retorno.next()) {
-                Compromisso compromisso = new Compromisso();
+			while (retorno.next()) {
+				Compromisso compromisso = new Compromisso();
 
-                compromisso.setId(retorno.getInt("id"));
-                compromisso.setDescricao(retorno.getString("descricao"));
-                compromisso.setData(retorno.getString("data"));
-                compromisso.setHora(retorno.getString("hora"));
-                compromisso.setCidade(retorno.getString("cidade"));
-                compromisso.setBairro(retorno.getString("bairro"));
-                compromisso.setRua(retorno.getString("rua"));
-                compromisso.setNumero(retorno.getInt("numero"));
-                compromisso.setAgendaId(retorno.getInt("agendaId"));
-                compromisso.setUsuarioId(retorno.getInt("usuarioId"));
-                compromisso.setAtivo(retorno.getBoolean("ativo"));
+				compromisso.setId(retorno.getInt("id"));
+				compromisso.setDescricao(retorno.getString("descricao"));
+				compromisso.setData(retorno.getString("data"));
+				compromisso.setHora(retorno.getString("hora"));
+				compromisso.setCidade(retorno.getString("cidade"));
+				compromisso.setBairro(retorno.getString("bairro"));
+				compromisso.setRua(retorno.getString("rua"));
+				compromisso.setNumero(retorno.getInt("numero"));
+				compromisso.setAgendaId(retorno.getInt("agendaId"));
+				compromisso.setUsuarioId(retorno.getInt("usuarioId"));
+				compromisso.setAtivo(retorno.getBoolean("ativo"));
 
+				if (compromisso.isAtivo()) {
+					compromissos.add(compromisso);
+				}
+			}
 
-                if (compromisso.isAtivo()) {
-                    compromissos.add(compromisso);
-                }
-            }
+			return ResponseEntity.ok(compromissos);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("error", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 
-            return ResponseEntity.ok(compromissos);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", e.getMessage()));
-        } finally {
-            metodos.fecharConexao(con);
-        }
-    }
-    
-    @GetMapping("/compromissos/id")
-    @ApiOperation(value = "Retorna um compromisso da tabela pelo seu ID")
-    public ResponseEntity<?> get(int id) {
-        ArrayList<Compromisso> compromissos = new ArrayList<>();
+	@GetMapping("/compromissos/agendaId")
+	@ApiOperation(value = "Retorna todos os compromissos da tabela")
+	public ResponseEntity<?> getPorAgendaId(int agendaId) {
+		ArrayList<Compromisso> compromissos = new ArrayList<>();
 
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection(connectionString);
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(connectionString);
 
-            String cm = "select * from tb_compromissos where id = ?";
+			String cm = "select * from tb_compromissos where agendaId = ?";
 
-            PreparedStatement comando = con.prepareStatement(cm);
-            
-            comando.setInt(1, id);
-            
-            ResultSet retorno = comando.executeQuery();
+			PreparedStatement comando = con.prepareStatement(cm);
 
-            while (retorno.next()) {
-                Compromisso compromisso = new Compromisso();
+			comando.setInt(1, agendaId);
 
-                compromisso.setId(id);
-                compromisso.setDescricao(retorno.getString("descricao"));
-                compromisso.setData(retorno.getString("data"));
-                compromisso.setHora(retorno.getString("hora"));
-                compromisso.setCidade(retorno.getString("cidade"));
-                compromisso.setBairro(retorno.getString("bairro"));
-                compromisso.setRua(retorno.getString("rua"));
-                compromisso.setNumero(retorno.getInt("numero"));
-                compromisso.setAgendaId(retorno.getInt("agendaId"));
-                compromisso.setUsuarioId(retorno.getInt("usuarioId"));
-                compromisso.setAtivo(retorno.getBoolean("ativo"));
+			ResultSet retorno = comando.executeQuery();
 
-                if (compromisso.isAtivo()) {
-                    compromissos.add(compromisso);
-                }
-            }
+			while (retorno.next()) {
+				Compromisso compromisso = new Compromisso();
 
-            return ResponseEntity.ok(compromissos);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", e.getMessage()));
-        } finally {
-            metodos.fecharConexao(con);
-        }
-    }
+				compromisso.setId(retorno.getInt("id"));
+				compromisso.setDescricao(retorno.getString("descricao"));
+				compromisso.setData(retorno.getString("data"));
+				compromisso.setHora(retorno.getString("hora"));
+				compromisso.setCidade(retorno.getString("cidade"));
+				compromisso.setBairro(retorno.getString("bairro"));
+				compromisso.setRua(retorno.getString("rua"));
+				compromisso.setNumero(retorno.getInt("numero"));
+				compromisso.setAgendaId(retorno.getInt("agendaId"));
+				compromisso.setUsuarioId(retorno.getInt("usuarioId"));
+				compromisso.setAtivo(retorno.getBoolean("ativo"));
 
-    @PostMapping("/compromissos")
-    @ApiOperation(value = "Insere um compromisso na tabela")
-    public ResponseEntity<?> post(@RequestBody Compromisso compromisso) {
-        Connection con = null;
+				if (compromisso.isAtivo()) {
+					compromissos.add(compromisso);
+				}
+			}
 
-        try {
-            con = DriverManager.getConnection(connectionString);
+			return ResponseEntity.ok(compromissos);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("error", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 
-            String cm = "insert into tb_compromissos(descricao, data, hora, cidade, bairro, rua, numero, usuarioId, agendaId, ativo)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	@GetMapping("/compromissos/id")
+	@ApiOperation(value = "Retorna um compromisso da tabela pelo seu ID")
+	public ResponseEntity<?> get(int id) {
+		ArrayList<Compromisso> compromissos = new ArrayList<>();
 
-            PreparedStatement comando = con.prepareStatement(cm);
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(connectionString);
 
-            comando.setString(1, compromisso.getDescricao());
-            comando.setString(2, compromisso.getData());
-            comando.setString(3, compromisso.getHora());
-            comando.setString(4, compromisso.getCidade());
-            comando.setString(5, compromisso.getBairro());
-            comando.setString(6, compromisso.getRua());
-            comando.setInt(7, compromisso.getNumero());
-            comando.setInt(8, compromisso.getUsuarioId());
-            comando.setInt(9, compromisso.getAgendaId());
-            comando.setBoolean(10, true);
+			String cm = "select * from tb_compromissos where id = ?";
 
-            comando.execute();
+			PreparedStatement comando = con.prepareStatement(cm);
 
-            return ResponseEntity.ok("Sucesso!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("erro", e.getMessage()));
-        } finally {
-            metodos.fecharConexao(con);
-        }
-    }
+			comando.setInt(1, id);
 
-    @PutMapping("/compromissos")
-    @ApiOperation(value = "Edita um compromisso da tabela")
-    public ResponseEntity<?> put(@RequestBody Compromisso compromisso) {
-        Connection con = null;
+			ResultSet retorno = comando.executeQuery();
 
-        try {
-            con = DriverManager.getConnection(connectionString);
+			while (retorno.next()) {
+				Compromisso compromisso = new Compromisso();
 
-            String cm = "update tb_compromissos set descricao = ?, data = ?, hora = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, usuarioId = ?, agendaId = ? where id = ?";
+				compromisso.setId(id);
+				compromisso.setDescricao(retorno.getString("descricao"));
+				compromisso.setData(retorno.getString("data"));
+				compromisso.setHora(retorno.getString("hora"));
+				compromisso.setCidade(retorno.getString("cidade"));
+				compromisso.setBairro(retorno.getString("bairro"));
+				compromisso.setRua(retorno.getString("rua"));
+				compromisso.setNumero(retorno.getInt("numero"));
+				compromisso.setAgendaId(retorno.getInt("agendaId"));
+				compromisso.setUsuarioId(retorno.getInt("usuarioId"));
+				compromisso.setAtivo(retorno.getBoolean("ativo"));
 
-            PreparedStatement comando = con.prepareStatement(cm);
+				if (compromisso.isAtivo()) {
+					compromissos.add(compromisso);
+				}
+			}
 
-            comando.setString(1, compromisso.getDescricao());
-            comando.setString(2, compromisso.getData());
-            comando.setString(3, compromisso.getHora());
-            comando.setString(4, compromisso.getCidade());
-            comando.setString(5, compromisso.getBairro());
-            comando.setString(6, compromisso.getRua());
-            comando.setInt(7, compromisso.getNumero());
-            comando.setInt(8, compromisso.getUsuarioId());
-            comando.setInt(9, compromisso.getAgendaId());
-            comando.setInt(10, compromisso.getId());
+			return ResponseEntity.ok(compromissos);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("error", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 
-            comando.execute();
+	@PostMapping("/compromissos")
+	@ApiOperation(value = "Insere um compromisso na tabela")
+	public ResponseEntity<?> post(@RequestBody Compromisso compromisso) {
+		Connection con = null;
 
-            return ResponseEntity.ok("Sucesso!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("erro", e.getMessage()));
-        } finally {
-            metodos.fecharConexao(con);
-        }
-    }
+		try {
+			con = DriverManager.getConnection(connectionString);
 
-    @DeleteMapping("/compromissos")
-    @ApiOperation(value = "Desativa um compromisso da tabela")
-    public ResponseEntity<?> delete(@RequestBody int id) {
-        Connection con = null;
+			String cm = "insert into tb_compromissos(descricao, data, hora, cidade, bairro, rua, numero, usuarioId, agendaId, ativo)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            con = DriverManager.getConnection(connectionString);
+			PreparedStatement comando = con.prepareStatement(cm);
 
-            String cm = "update tb_compromissos set ativo = ? where id = ?";
+			comando.setString(1, compromisso.getDescricao());
+			comando.setString(2, compromisso.getData());
+			comando.setString(3, compromisso.getHora());
+			comando.setString(4, compromisso.getCidade());
+			comando.setString(5, compromisso.getBairro());
+			comando.setString(6, compromisso.getRua());
+			comando.setInt(7, compromisso.getNumero());
+			comando.setInt(8, compromisso.getUsuarioId());
+			comando.setInt(9, compromisso.getAgendaId());
+			comando.setBoolean(10, true);
 
-            PreparedStatement comando = con.prepareStatement(cm);
+			comando.execute();
 
-            comando.setBoolean(1, false);
-            comando.setInt(2, id);
+			return ResponseEntity.ok("Sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("erro", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 
-            comando.execute();
+	@PutMapping("/compromissos")
+	@ApiOperation(value = "Edita um compromisso da tabela")
+	public ResponseEntity<?> put(@RequestBody Compromisso compromisso) {
+		Connection con = null;
 
-            return ResponseEntity.ok("Sucesso!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("erro", e.getMessage()));
-        } finally {
-            metodos.fecharConexao(con);
-        }
-    }
+		try {
+			con = DriverManager.getConnection(connectionString);
+
+			String cm = "update tb_compromissos set descricao = ?, data = ?, hora = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, usuarioId = ?, agendaId = ? where id = ?";
+
+			PreparedStatement comando = con.prepareStatement(cm);
+
+			comando.setString(1, compromisso.getDescricao());
+			comando.setString(2, compromisso.getData());
+			comando.setString(3, compromisso.getHora());
+			comando.setString(4, compromisso.getCidade());
+			comando.setString(5, compromisso.getBairro());
+			comando.setString(6, compromisso.getRua());
+			comando.setInt(7, compromisso.getNumero());
+			comando.setInt(8, compromisso.getUsuarioId());
+			comando.setInt(9, compromisso.getAgendaId());
+			comando.setInt(10, compromisso.getId());
+
+			comando.execute();
+
+			return ResponseEntity.ok("Sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("erro", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
+
+	@DeleteMapping("/compromissos")
+	@ApiOperation(value = "Desativa um compromisso da tabela")
+	public ResponseEntity<?> delete(@RequestBody int id) {
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(connectionString);
+
+			String cm = "update tb_compromissos set ativo = ? where id = ?";
+
+			PreparedStatement comando = con.prepareStatement(cm);
+
+			comando.setBoolean(1, false);
+			comando.setInt(2, id);
+
+			comando.execute();
+
+			return ResponseEntity.ok("Sucesso!");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("erro", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 }

@@ -64,6 +64,45 @@ public class agendasController implements Icrud {
 			metodos.fecharConexao(con);
 		}
 	}
+	
+	@GetMapping("/agendas/usuarioId")
+	@ApiOperation(value = "Retorna todas as agendas da tabela")
+	public ResponseEntity<?> getPorUsuarioId(int usuarioId) {
+		ArrayList<Agenda> agendas = new ArrayList<>();
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(connectionString);
+
+			String cm = "select * from tb_agendas where usuarioId = ?";
+
+			PreparedStatement comando = con.prepareStatement(cm);
+			
+			comando.setInt(1, usuarioId);
+
+			ResultSet retorno = comando.executeQuery();
+
+			while (retorno.next()) {
+				Agenda agenda = new Agenda();
+
+				agenda.setId(retorno.getInt("id"));
+				agenda.setUsuarioId(retorno.getInt("usuarioId"));
+				agenda.setNome(retorno.getString("nome"));
+				agenda.setAtivo(retorno.getBoolean("ativo"));
+
+				if (agenda.isAtivo() == true) {
+					agendas.add(agenda);
+				}
+			}
+
+			return ResponseEntity.ok(agendas);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("error", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
 
 	@PostMapping("/agendas")
 	@ApiOperation(value = "Insere uma agenda na tabela")

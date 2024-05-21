@@ -1,4 +1,6 @@
 window.onload = async () => {
+    criaAgendasNoSelect()
+
     renderizaCalendario()
 
     pegaCompromissos()
@@ -121,10 +123,31 @@ function fecharNavegacao() {
     document.getElementById("navegacao").classList.replace("navegacao", "navegacaoInvisivel")
 }
 
+async function criaAgendasNoSelect(){
+    var options = {
+        method: "get"
+    }
+
+    var usuarioId = decodificaToken(localStorage.getItem("token")).dados.id
+
+    var retorno = await fetch(`http://localhost:8080/agendas/usuarioId?usuarioId=${usuarioId}`, options)
+
+    var agendas = await retorno.json();
+
+    agendas.forEach(agenda => {
+        var selectAgendas = document.getElementById("agenda");
+
+        selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="pegaCompromissos()" value="${agenda.id}">${agenda.nome}</option>`)
+    })
+}
+
+
 async function pegaCompromissos() {
     var options = {
         method: "get"
     }
+
+    var agendaId = document.getElementById("agenda").value
 
     var retorno = await fetch(`http://localhost:8080/compromissos`, options)
 
@@ -152,12 +175,22 @@ function adicionaCompromissosAoCalendario(compromissos) {
         var td = "";
 
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
-            td = document.getElementById(`${mesDoCompromisso - 1}`)
+            for(var i = 0; i <= 31; i++){
+                if(document.getElementsByTagName("td")[i] && document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso){
+                    td = document.getElementsByTagName("td")[i]
+                }
+            }
         }
 
         var anoDoCalendario = document.getElementById("data").innerHTML.substring(6,10)
 
+        //console.log(diaDoCompromisso)
+
+        //console.log(td.innerHTML)
+
         if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
+            
+
             td.classList.add("compromisso")
         }
     })
