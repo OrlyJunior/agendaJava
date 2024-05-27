@@ -14,7 +14,7 @@ public class GeraToken {
 	public String geraToken(String user, String email, boolean ativo, int id) {
 		Date expira = new Date(System.currentTimeMillis() + 3600000);
 		
-		String chaveSecreta = palavraSecreta();
+		String chaveSecreta = palavraSecreta();  
 		
 		try {
 			Map<String, Object> claims = new HashMap<>();
