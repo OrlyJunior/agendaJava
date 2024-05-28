@@ -49,12 +49,14 @@ nav>p:hover {
 
 th {
     padding: 3%;
+    margin: 1%;
     background-color: rgb(205, 205, 255);
 }
 
 td {
     text-align: center;
     border-radius: 12px;
+    padding: 1%;
 }
 
 td,
@@ -105,12 +107,31 @@ p {
     cursor: pointer;
 }
 
+select{
+    padding: 2.25%;
+    border: 0.5px solid gray;
+    width: 100%;
+    margin-top: 2%;
+    border-radius: 12px;
+
+}
+
+select:focus{
+    color: white;
+    background-color: rgb(51, 51, 51);
+}
+
 .data>button:hover{
     background-color: rgb(183, 183, 250);
 }
 
 .compromisso{
-    background-color: red;
+    background-color: rgba(194, 194, 194, 0.75);
+    cursor: pointer;
+}
+
+.compromisso:hover{
+    background-color: rgba(173, 173, 173, 0.75);
 }
 
 a{
