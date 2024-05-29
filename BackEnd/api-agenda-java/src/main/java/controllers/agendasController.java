@@ -64,7 +64,7 @@ public class agendasController implements Icrud {
 			metodos.fecharConexao(con);
 		}
 	}
-	
+
 	@GetMapping("/agendas/usuarioId")
 	@ApiOperation(value = "Retorna todas as agendas da tabela")
 	public ResponseEntity<?> getPorUsuarioId(int usuarioId) {
@@ -77,7 +77,7 @@ public class agendasController implements Icrud {
 			String cm = "select * from tb_agendas where usuarioId = ?";
 
 			PreparedStatement comando = con.prepareStatement(cm);
-			
+
 			comando.setInt(1, usuarioId);
 
 			ResultSet retorno = comando.executeQuery();
@@ -96,6 +96,46 @@ public class agendasController implements Icrud {
 			}
 
 			return ResponseEntity.ok(agendas);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Collections.singletonMap("error", e.getMessage()));
+		} finally {
+			metodos.fecharConexao(con);
+		}
+	}
+
+	@GetMapping("/agendas/id")
+	@ApiOperation(value = "Retorna uma agenda pelo seu ID")
+	public ResponseEntity<?> getAgendaId(int id) {
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(connectionString);
+
+			String cm = "select * from tb_agendas where id = ?";
+
+			PreparedStatement comando = con.prepareStatement(cm);
+
+			comando.setInt(1, id);
+
+			ResultSet retorno = comando.executeQuery();
+
+			Agenda agenda = new Agenda();
+
+			while (retorno.next()) {
+				agenda.setId(retorno.getInt("id"));
+				agenda.setNome(retorno.getString("nome"));
+				agenda.setUsuarioId(retorno.getInt("usuarioId"));
+				agenda.setAtivo(retorno.getBoolean("ativo"));
+
+			}
+
+			if (agenda.isAtivo()) {
+				return ResponseEntity.ok(agenda);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body(Collections.singletonMap("error", "Esta agenda não está ativa ou não existe!"));
+			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(Collections.singletonMap("error", e.getMessage()));

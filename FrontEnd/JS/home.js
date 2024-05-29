@@ -191,15 +191,17 @@ function adicionaCompromissosAoCalendario(compromissos) {
                 if (td.innerHTML == diaDoCompromisso && anoDoCalendario == anoDoCompromisso) {
                     td.classList.add("compromisso")
 
-                    td.addEventListener("click", verCompromisso)
+                    td.addEventListener("click", () => {
+                        verCompromisso(compromisso.id);
+                    })
                 }
             }
         }
     })
 }
 
-function verCompromisso(){
-    window.location.href = "AcoesCompromissos/verCompromissos.html"
+function verCompromisso(id){
+    window.location.href = `AcoesCompromissos/verCompromisso.html?id=${id}`
 }
 
 function decodificaToken(token) {
