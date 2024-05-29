@@ -1,0 +1,42 @@
+body,html{
+    background-color: rgb(228, 228, 228);
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card{
+    margin-top: 3%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: white;
+    height: 50%;
+    border-radius: 30px;
+    position: relative;
+}
+
+h1{
+    margin-bottom: -12.03%;
+    width: 96%;
+    text-align: center;
+    background-color: rgb(141, 141, 255);
+    position: relative;
+    top: -6.5%;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    padding: 2%;
+}
+
+h3{
+    margin-bottom: 9%;
+    width: 94%;
+    text-align: center;
+    background-color: rgb(205, 205, 255);
+    padding: 3%;
+    box-shadow: 0px 8px 8px -1px rgba(0,0,0,0.45);
+}
