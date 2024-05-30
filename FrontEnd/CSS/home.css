@@ -5,6 +5,9 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
     width: 101vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-left: 0;
 }
 
@@ -62,6 +65,7 @@ td {
 td,
 th,
 p {
+    margin: 10%;
     cursor: default;
 }
 
@@ -79,7 +83,7 @@ p {
 }
 
 .calendario>table {
-    width: 80%;
+    width: 40%;
     height: 80%;
     border-radius: 12px;
     border-collapse: collapse;
@@ -93,6 +97,13 @@ p {
     align-items: center;
     justify-content: space-evenly;
     margin-top: 0%;
+}
+
+.agendas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18%;
 }
 
 .data>button {
@@ -111,9 +122,9 @@ select{
     padding: 2.25%;
     border: 0.5px solid gray;
     width: 100%;
-    margin-top: 2%;
+    margin-top: -2%;
+    margin-bottom: 2%;
     border-radius: 12px;
-
 }
 
 select:focus{

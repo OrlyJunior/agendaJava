@@ -28,7 +28,38 @@ async function consultar(){
 }
 
 function selecionou(id){
-    window.location.href = `editarCompromisso.html?id=${id}`
+    document.getElementById("tabela").insertAdjacentHTML("afterend", `<div id="confirmaDeletar" class="confirmaDeletar">
+                                                                                        <div>
+                                                                                            <p>Você realmente deseja deletar este compromisso?</p>
+                                                                                        </div>
+
+                                                                                        <div class="containerButtons">
+                                                                                            <button onclick="deleta(${id})" class="sim">Sim</button>
+                                                                                            <button onclick="naoDeleta()" class="nao">Não</button>
+                                                                                        </div>
+                                                                                    </div>`);
+}
+
+async function deleta(id){
+    var update = id
+
+    console.log(update)
+
+    var options = {
+        method: "delete",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(update)
+    };
+
+    var compromisso = await fetch(`http://localhost:8080/compromissos`, options)
+
+    window.location.reload()
+}
+
+function naoDeleta(){
+    document.getElementById("confirmaDeletar").remove();
 }
 
 function decodificaToken(token) {

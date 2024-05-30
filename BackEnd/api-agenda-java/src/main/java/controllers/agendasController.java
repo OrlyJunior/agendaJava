@@ -127,7 +127,6 @@ public class agendasController implements Icrud {
 				agenda.setNome(retorno.getString("nome"));
 				agenda.setUsuarioId(retorno.getInt("usuarioId"));
 				agenda.setAtivo(retorno.getBoolean("ativo"));
-
 			}
 
 			if (agenda.isAtivo()) {
