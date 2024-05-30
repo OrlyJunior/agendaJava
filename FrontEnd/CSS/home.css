@@ -93,9 +93,9 @@ p {
 
 .data {
     display: flex;
-    width: 15%;
+    width: 20%;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content:space-between;
     margin-top: 0%;
 }
 
