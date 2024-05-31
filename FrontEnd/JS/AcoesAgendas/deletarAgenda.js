@@ -21,7 +21,7 @@ async function pegaAgendas(){
 function selecionaAgenda(id){
     document.getElementById("container").insertAdjacentHTML("afterend", `<div id="confirmaDeletar" class="confirmaDeletar">
                                                                                         <div>
-                                                                                            <p>Você realmente deseja deletar este compromisso?</p>
+                                                                                            <p>Você realmente deseja deletar esta agenda? Os compromissos dela também serão deletados!</p>
                                                                                         </div>
 
                                                                                         <div class="containerButtons">

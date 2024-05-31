@@ -21,3 +21,9 @@ async function pegaAgendas(){
 function editarAgenda(id) {
     window.location.href = `editarAgenda.html?id=${id}`
 }
+
+function decodificaToken(token){
+    var tokenDecodificado = jwt_decode(token)
+
+    return tokenDecodificado
+}
