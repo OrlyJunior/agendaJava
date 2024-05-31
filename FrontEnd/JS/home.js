@@ -164,6 +164,8 @@ function adicionaCompromissosAoCalendario(compromissos) {
     }
 
     compromissos.forEach(compromisso => {
+        console.log(compromisso)
+
         var comp = compromisso.data;
 
         var anoDoCompromisso = comp.substring(0, 4)
@@ -176,13 +178,16 @@ function adicionaCompromissosAoCalendario(compromissos) {
 
         var diaDoCompromisso = comp.substring(8, 10)
 
+        console.log(diaDoCompromisso)
+
         var td = "";
 
         var anoDoCalendario = document.getElementById("data").innerHTML.split(",")[1].substring(1, 5)
 
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
-            for (var i = 0; i <= 31; i++) {
+            for (var i = 0; i <= 33; i++) {
                 if (document.getElementsByTagName("td")[i]) {
+                    console.log(document.getElementsByTagName("td")[i])
                     if (document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso) {
                         td = document.getElementsByTagName("td")[i]
                     }

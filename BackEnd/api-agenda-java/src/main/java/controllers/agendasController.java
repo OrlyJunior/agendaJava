@@ -212,7 +212,19 @@ public class agendasController implements Icrud {
 			comando.setInt(2, id);
 
 			comando.execute();
-
+			
+			comando.close();
+			
+			String cm2 = "update tb_compromissos set ativo = ? where agendaId = ?";
+			
+			PreparedStatement comando2 = con.prepareStatement(cm2);
+			
+			comando2.setBoolean(1, false);
+			comando2.setInt(2, id);
+			
+			comando2.execute();
+			
+			comando2.close();
 			return ResponseEntity.ok("Sucesso!");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
