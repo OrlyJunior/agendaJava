@@ -185,7 +185,7 @@ function adicionaCompromissosAoCalendario(compromissos) {
         var anoDoCalendario = document.getElementById("data").innerHTML.split(",")[1].substring(1, 5)
 
         if (document.getElementById(`${mesDoCompromisso - 1}`)) {
-            for (var i = 0; i <= 33; i++) {
+            for (var i = 0; i <= 35; i++) {
                 if (document.getElementsByTagName("td")[i]) {
                     console.log(document.getElementsByTagName("td")[i])
                     if (document.getElementsByTagName("td")[i].innerHTML == diaDoCompromisso) {

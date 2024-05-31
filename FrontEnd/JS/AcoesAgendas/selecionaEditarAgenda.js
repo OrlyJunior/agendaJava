@@ -1,11 +1,13 @@
-window.onload = consultaAgendas
+window.onload = pegaAgendas
 
-async function consultaAgendas() {
+async function pegaAgendas(){
     var options = {
         method: "get"
     }
 
-    var retorno = await fetch(`http://localhost:8080/agendas`)
+    var usuarioId = decodificaToken(localStorage.getItem("token")).dados.id
+
+    var retorno = await fetch(`http://localhost:8080/agendas/usuarioId?usuarioId=${usuarioId}`, options)
 
     var agendas = await retorno.json()
 

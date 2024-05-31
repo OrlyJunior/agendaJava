@@ -1,9 +1,29 @@
-window.onload = () => {
+window.onload = async () => {
     var variavel = new URLSearchParams(window.location.search)
 
     var variavelDeURL = variavel.get("id")
 
-    pegarCompromisso(variavelDeURL)
+    criaAgendasNoSelect()
+
+    await pegarCompromisso(variavelDeURL)
+}
+
+async function criaAgendasNoSelect() {
+    var options = {
+        method: "get"
+    }
+
+    var usuarioId = decodificaToken(localStorage.getItem("token")).dados.id
+
+    var retorno = await fetch(`http://localhost:8080/agendas/usuarioId?usuarioId=${usuarioId}`, options)
+
+    var agendas = await retorno.json();
+
+    agendas.forEach(agenda => {
+        var selectAgendas = document.getElementById("agenda");
+
+        selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="renderizaCalendario()" value="${agenda.id}">${agenda.nome}</option>`)
+    })
 }
 
 async function pegarCompromisso(id) {
@@ -17,14 +37,14 @@ async function pegarCompromisso(id) {
 
     console.log(compromisso)
 
-    document.getElementById("desc").value = compromisso[0].descricao
-    document.getElementById("data").value = compromisso[0].data
-    document.getElementById("hora").value = compromisso[0].hora
-    document.getElementById("cidade").value = compromisso[0].cidade
-    document.getElementById("bairro").value = compromisso[0].bairro
-    document.getElementById("rua").value = compromisso[0].rua
-    document.getElementById("numero").value = compromisso[0].numero
-    document.getElementById("agenda").value = compromisso[0].agendaId
+    document.getElementById("desc").value = compromisso.descricao
+    document.getElementById("data").value = compromisso.data
+    document.getElementById("hora").value = compromisso.hora
+    document.getElementById("cidade").value = compromisso.cidade
+    document.getElementById("bairro").value = compromisso.bairro
+    document.getElementById("rua").value = compromisso.rua
+    document.getElementById("numero").value = compromisso.numero
+    document.getElementById("agenda").value = compromisso.agendaId
 }
 
 async function editar() {
@@ -33,7 +53,8 @@ async function editar() {
     var id = parametros.get("id");
 
     var desc = document.getElementById("desc").value;
-    var data = `${document.getElementById("data").value} ${document.getElementById("hora").value}`;
+    var data = `${document.getElementById("data").value}`;
+    var hora = ` ${document.getElementById("hora").value}`;
     var cidade = document.getElementById("cidade").value;
     var bairro = document.getElementById("bairro").value;
     var rua = document.getElementById("rua").value;
@@ -44,6 +65,7 @@ async function editar() {
         id: id,
         descricao: desc,
         data: data,
+        hora: hora,
         cidade: cidade,
         bairro: bairro,
         rua: rua,

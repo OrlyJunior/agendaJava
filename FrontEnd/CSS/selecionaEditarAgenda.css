@@ -11,6 +11,35 @@ body {
     align-items: center;
 }
 
+.confirmaDeletar {
+    height: 15%;
+    top: 42.5%;
+    position: absolute;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5%;
+    border-radius: 16px;
+}
+
+.containerButtons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerButtons>button {
+    border: 0;
+    background-color: whitesmoke;
+    padding: 3%;
+    padding-left: 4%;
+    padding-right: 4%;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
 .container{
     width: 80%;
 }
