@@ -35,8 +35,11 @@ nav>p:hover {
 }
 
 .perfil {
+    width: 5%;
     position: absolute;
-    right: 6%;
+    right: 2.5%;
+    margin-bottom: 0.4%;
+    cursor: pointer;
 }
 
 .acoes{
@@ -89,6 +92,18 @@ p {
     border-collapse: collapse;
     overflow: hidden;
     background-color: whitesmoke;
+}
+
+.tresPontos{
+    position: absolute;
+    left: 1%;
+    width: 2%;
+    margin-bottom: 0.5%;
+    cursor: pointer;
+}
+
+.x{
+    cursor: pointer;
 }
 
 .data {
