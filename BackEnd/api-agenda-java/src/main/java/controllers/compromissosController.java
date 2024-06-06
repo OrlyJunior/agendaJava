@@ -143,7 +143,7 @@ public class compromissosController implements Icrud {
 				compromisso.setRua(retorno.getString("rua"));
 				compromisso.setNumero(retorno.getInt("numero"));
 				compromisso.setAgendaId(retorno.getInt("agendaId"));
-				compromisso.setUsuarioId(retorno.getInt(usuarioId));
+				compromisso.setUsuarioId(usuarioId);
 				compromisso.setAtivo(retorno.getBoolean("ativo"));
 
 				if (compromisso.isAtivo()) {

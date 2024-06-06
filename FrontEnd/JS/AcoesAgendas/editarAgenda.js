@@ -1,4 +1,4 @@
-async function editarAgenda(){
+async function editarAgenda() {
     var pegaURL = new URLSearchParams(window.location.search);
 
     var variavelURL = pegaURL.get("id")
@@ -9,7 +9,7 @@ async function editarAgenda(){
         usuarioId: decodificaToken(localStorage.getItem("token")).dados.id,
         ativo: true
     }
-    
+
     var options = {
         method: "put",
         headers: {
@@ -18,12 +18,16 @@ async function editarAgenda(){
         body: JSON.stringify(update)
     }
 
-    var retorno = await fetch(`http://localhost:8080/agendas`, options)
+    try {
+        var retorno = await fetch(`http://localhost:8080/agendas`, options)
 
-    console.log(retorno.text())
+        window.location.href = "../home.html"
+    } catch (e) {
+        console.log(e)
+    }
 }
 
-function decodificaToken(token){
+function decodificaToken(token) {
     var tokenDecodificado = jwt_decode(token)
 
     return tokenDecodificado

@@ -12,15 +12,19 @@ async function pegaAgendas() {
 
         var agendas = await retorno.json()
 
-        agendas.forEach(agenda => {
-            document.getElementById("container").insertAdjacentHTML("afterbegin", `<div onclick="editarAgenda(${agenda.id})" class="agenda">
-                                                                                    <p>${agenda.nome}</p>
-                                                                                </div>`)
-        })
+        if(agendas.length != 0){
+            agendas.forEach(agenda => {
+                document.getElementById("container").insertAdjacentHTML("afterbegin", `<div onclick="editarAgenda(${agenda.id})" class="agenda">
+                                                                                        <p>${agenda.nome}</p>
+                                                                                    </div>`)
+            })
+        }else{
+            document.getElementById("container").insertAdjacentHTML("afterbegin", `<div class="agenda">
+                                                                                        <p>Não foi possível encontrar os dados das suas agendas!</p>
+                                                                                    </div>`)
+        }
     } catch (e) {
-        document.getElementById("container").insertAdjacentHTML("afterbegin", `<div class="agenda">
-                                                                                    <p>Não foi possível encontrar dados de agendas!</p>
-                                                                                </div>`)
+        console.log(`Erro: ${e}`)
     }
 
 }

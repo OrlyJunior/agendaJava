@@ -12,16 +12,20 @@ async function consultar(){
 
         var compromissos = await retorno.json();
 
-        compromissos.forEach(element => {
-            document.getElementById("tabelaCompromissos").insertAdjacentHTML("beforeend", `<tr onclick="selecionou(${element.id})">
-                                                                                                <td>${element.descricao}</td>
-                                                                                                <td>${element.data}
-                                                                                                <td>${element.cidade}</td>
-                                                                                                <td>${element.bairro}</td>
-                                                                                                <td>${element.rua}</td>
-                                                                                                <td>${element.numero}</td>
-                                                                                            </tr>`)
-        })
+        if(compromissos.length != 0){
+            compromissos.forEach(element => {
+                document.getElementById("tabelaCompromissos").insertAdjacentHTML("beforeend", `<tr onclick="selecionou(${element.id})">
+                                                                                                    <td>${element.descricao}</td>
+                                                                                                    <td>${element.data}
+                                                                                                    <td>${element.cidade}</td>
+                                                                                                    <td>${element.bairro}</td>
+                                                                                                    <td>${element.rua}</td>
+                                                                                                    <td>${element.numero}</td>
+                                                                                                </tr>`)
+            })
+        }else{
+            document.getElementById("tabelaCompromissos").insertAdjacentHTML("afterend", `<p>Não foi possível pegar os dados de seus compromissos!</p>`)
+        }
     }catch(e) {
         console.error(e);
     }

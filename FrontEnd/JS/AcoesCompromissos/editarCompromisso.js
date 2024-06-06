@@ -85,9 +85,8 @@ async function editar() {
     try {
         var retorno = await fetch(`http://localhost:8080/compromissos`, options)
 
-        console.log(retorno.text())
+        window.location.href = "../home.html"
     } catch (e) {
-        console.log(retorno.text())
         console.error(e);
     }
 }
