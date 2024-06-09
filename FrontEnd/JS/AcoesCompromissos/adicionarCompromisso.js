@@ -63,3 +63,7 @@ async function criaAgendasNoSelect() {
         selectAgendas.insertAdjacentHTML("beforeend", `<option onclick="renderizaCalendario()" value="${agenda.id}">${agenda.nome}</option>`)
     })
 }
+
+function sair(){
+    window.location.href = "../home.html"
+}

@@ -18,13 +18,15 @@ async function login() {
     try {
         const data = await fetch(`http://localhost:8080/users/login`, options)
 
-        const token = data.text()
+        const token = await data.text()
             .then(retorno =>
                 localStorage.setItem("token", retorno)
             )
 
         if(decodificaToken(localStorage.getItem("token")).dados.ativo == true){
             window.location.href = "home.html";
+        }else{
+            window.location.reload();
         }
     } catch (e) {
         console.log(e)

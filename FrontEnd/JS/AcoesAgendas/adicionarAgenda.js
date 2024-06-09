@@ -24,3 +24,7 @@ function decodificaToken(token) {
 
     return tokenDecodificado;
 }
+
+function sair(){
+    window.location.href = "../home.html"
+}

@@ -28,6 +28,10 @@ async function pegaAgendas() {
     }
 }
 
+function sair(){
+    window.location.href = "../home.html"
+}
+
 function selecionaAgenda(id) {
     document.getElementById("container").insertAdjacentHTML("afterend", `<div id="confirmaDeletar" class="confirmaDeletar">
                                                                                         <div>

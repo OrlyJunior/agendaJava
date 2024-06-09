@@ -205,6 +205,12 @@ function adicionaCompromissosAoCalendario(compromissos) {
     })
 }
 
+function deslogar(){
+    localStorage.removeItem("token");
+
+    window.location.href = "login.html";
+}
+
 function verCompromisso(id){
     window.location.href = `AcoesCompromissos/verCompromisso.html?id=${id}`
 }

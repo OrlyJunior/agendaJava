@@ -18,6 +18,10 @@ async function pegaAgendas(){
     })
 }
 
+function sair(){
+    window.location.href = "../home.html"
+}
+
 function decodificaToken(token){
     var tokenDecodificado = jwt_decode(token)
 

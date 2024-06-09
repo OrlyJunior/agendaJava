@@ -27,3 +27,7 @@ function mostraCompromisso(compromisso, agenda) {
     document.getElementById("hora").innerHTML = compromisso.hora
     document.getElementById("local").innerHTML = `${compromisso.cidade}, ${compromisso.bairro}, ${compromisso.rua}, ${compromisso.numero}`
 }
+
+function sair(){
+    window.location.href = "../home.html"
+}

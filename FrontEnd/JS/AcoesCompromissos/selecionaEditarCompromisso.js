@@ -35,6 +35,10 @@ function selecionou(id){
     window.location.href = `editarCompromisso.html?id=${id}`
 }
 
+function sair(){
+    window.location.href = "../home.html"
+}
+
 function decodificaToken(token) {
     var tokenDecodificado = jwt_decode(token);
 

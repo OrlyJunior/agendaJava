@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,13 @@
 
     <link rel="stylesheet" href="../../CSS/tabelas.css">
 </head>
+
 <body>
-<h1>Editar compromisso</h1>
+    <div class="sair" onclick="sair()">
+        X
+    </div>
+
+    <h1>Editar compromisso</h1>
 
     <table>
         <thead>
@@ -20,11 +26,12 @@
             <th>Número</th>
         </thead>
         <tbody id="tabelaCompromissos">
-            
+
         </tbody>
     </table>
 
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <script src="../../JS/AcoesCompromissos/selecionaEditarCompromisso.js"></script>
 </body>
+
 </html>

@@ -56,3 +56,23 @@ a{
     margin-top: 1%;
     color: black;
 }
+
+.sair{
+    position: absolute;
+    left: 1%;
+    top: 1%;
+    background-color: whitesmoke;
+    padding: 1.5%;
+    width: 1%;
+    height: 2%;
+    border-radius: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sair:hover{
+    background-color: rgb(37, 37, 37);
+    color: white;
+    cursor: pointer;
+}

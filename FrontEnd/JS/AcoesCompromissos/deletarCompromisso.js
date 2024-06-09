@@ -31,6 +31,10 @@ async function consultar(){
     }
 }
 
+function sair(){
+    window.location.href = "../home.html"
+}
+
 function selecionou(id){
     document.getElementById("tabela").insertAdjacentHTML("afterend", `<div id="confirmaDeletar" class="confirmaDeletar">
                                                                                         <div>

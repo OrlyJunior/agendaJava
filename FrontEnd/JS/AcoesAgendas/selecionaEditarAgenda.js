@@ -26,7 +26,10 @@ async function pegaAgendas() {
     } catch (e) {
         console.log(`Erro: ${e}`)
     }
+}
 
+function sair(){
+    window.location.href = "../home.html"
 }
 
 function editarAgenda(id) {
