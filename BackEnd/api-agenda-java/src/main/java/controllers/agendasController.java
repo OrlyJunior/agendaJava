@@ -6,8 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +29,12 @@ import interfaces.Icrud;
 @RestController
 @Api(tags = "CRUD de agendas")
 public class agendasController implements Icrud {
-	Metodos metodos = new Metodos();
-
-	private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
+	@Autowired
+	Metodos metodos;
+	
+	@Autowired
+	DataSource dataSource;
+	
 	@GetMapping("/agendas")
 	@ApiOperation(value = "Retorna todas as agendas da tabela")
 	public ResponseEntity<?> get() {
@@ -35,7 +42,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_agendas";
 
@@ -72,7 +79,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_agendas where usuarioId = ?";
 
@@ -110,7 +117,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_agendas where id = ?";
 
@@ -149,7 +156,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "insert into tb_agendas (usuarioId, nome, ativo) values (?, ?, ?)";
 
@@ -176,7 +183,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_agendas set nome = ? where id = ?";
 
@@ -202,7 +209,7 @@ public class agendasController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_agendas set ativo = ? where id = ?";
 

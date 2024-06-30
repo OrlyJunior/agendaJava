@@ -9,7 +9,9 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GeraToken {
 	public String geraToken(String user, String email, boolean ativo, int id) {
 		Date expira = new Date(System.currentTimeMillis() + 3600000);

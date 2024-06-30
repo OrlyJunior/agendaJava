@@ -2,6 +2,9 @@ package metodosUteis;
 
 import java.sql.Connection;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Metodos {
 	public void fecharConexao(Connection con) {
 		try {

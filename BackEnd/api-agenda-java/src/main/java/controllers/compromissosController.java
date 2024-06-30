@@ -7,12 +7,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.sql.DataSource;
+
 import metodosUteis.Metodos;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.web.bind.annotation.*;
 
+import config.DataSourceConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import interfaces.Icrud;
@@ -20,9 +26,12 @@ import interfaces.Icrud;
 @RestController
 @Api(tags = "CRUD de compromissos")
 public class compromissosController implements Icrud {
-	Metodos metodos = new Metodos();
-
-	private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
+	
+	@Autowired
+	Metodos metodos;
+	
+	@Autowired
+	DataSource dataSource;
 
 	@GetMapping("/compromissos")
 	@ApiOperation(value = "Retorna todos os compromissos da tabela")
@@ -31,7 +40,7 @@ public class compromissosController implements Icrud {
 
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_compromissos";
 
@@ -75,7 +84,7 @@ public class compromissosController implements Icrud {
 
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_compromissos where agendaId = ?";
 
@@ -121,7 +130,7 @@ public class compromissosController implements Icrud {
 
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_compromissos where usuarioId = ?";
 
@@ -165,7 +174,7 @@ public class compromissosController implements Icrud {
 	public ResponseEntity<?> get(int id) {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_compromissos where id = ?";
 
@@ -212,7 +221,7 @@ public class compromissosController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "insert into tb_compromissos(descricao, data, hora, cidade, bairro, rua, numero, usuarioId, agendaId, ativo)values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -246,7 +255,7 @@ public class compromissosController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_compromissos set descricao = ?, data = ?, hora = ?, cidade = ?, bairro = ?, rua = ?, numero = ?, usuarioId = ?, agendaId = ? where id = ?";
 
@@ -280,7 +289,7 @@ public class compromissosController implements Icrud {
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_compromissos set ativo = ? where id = ?";
 

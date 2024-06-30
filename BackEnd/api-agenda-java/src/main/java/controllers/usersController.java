@@ -9,9 +9,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import metodosUteis.Metodos;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +34,16 @@ import jwtActions.GeraToken;
 @RestController
 @Api(tags = "CRUD de usuários")
 public class usersController implements Icrud{
-	GeraToken geradorDeTokens = new GeraToken();
 	
-	Metodos metodos = new Metodos();
+	@Autowired
+	GeraToken geradorDeTokens;
 	
-    private final String connectionString = "jdbc:mysql://localhost:3306/agenda_java?user=root&password=1234561";
-
+	@Autowired
+	Metodos metodos;
+	
+	@Autowired
+	DataSource dataSource;
+	
 	@GetMapping("/users")
 	@ApiOperation(value = "Retorna todos os usuários")
 	public ResponseEntity<?> get() {
@@ -43,7 +52,7 @@ public class usersController implements Icrud{
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_usuarios";
 
@@ -82,7 +91,7 @@ public class usersController implements Icrud{
 		User user = new User();
 	
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_usuarios where id = ?";
 
@@ -125,7 +134,7 @@ public class usersController implements Icrud{
 		String token = "";
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "select * from tb_usuarios";
 
@@ -156,7 +165,7 @@ public class usersController implements Icrud{
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "insert into tb_usuarios(user, email, password, ativo)values(?, ?, ?, ?)";
 
@@ -184,7 +193,7 @@ public class usersController implements Icrud{
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_usuarios set user = ?, email = ?, password = ? where id = ?";
 
@@ -212,7 +221,7 @@ public class usersController implements Icrud{
 		Connection con = null;
 
 		try {
-			con = DriverManager.getConnection(connectionString);
+			con = DataSourceUtils.getConnection(dataSource);
 
 			String cm = "update tb_usuarios set ativo = false where id = ?";
 
